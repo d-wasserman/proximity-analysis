@@ -1,10 +1,11 @@
 # --------------------------------
 # Name: ChainedNearAnalysis.py
-# Purpose:
+# Purpose: This tool will conduct a near analysis that will add a new field for every Near Feature input into the
+# Input Features dataset.
 # Current Owner: David Wasserman
-# Last Modified: 01/01/2016
+# Last Modified: 09/18/2016
 # Copyright:   (c) CoAdapt
-# ArcGIS Version:   10.3
+# ArcGIS Version:   10.4.1
 # Python Version:   2.7
 # --------------------------------
 # Copyright 2016 David J. Wasserman
