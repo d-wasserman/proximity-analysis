@@ -34,12 +34,12 @@ angle=arcpy.GetParameter(4)
 method=arcpy.GetParameterAsText(5)
 # Function Definitions
 
-def funcReport(function=None, reportBool=False):
+def func_report(function=None, reportBool=False):
     """This decorator function is designed to be used as a wrapper with other functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
 
-    def funcReport_Decorator(function):
+    def func_report_decorator(function):
         def funcWrapper(*args, **kwargs):
             try:
                 funcResult = function(*args, **kwargs)
@@ -57,19 +57,19 @@ def funcReport(function=None, reportBool=False):
 
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
-            return funcReport_Decorator(function)
+            return func_report_decorator(function)
 
         return waiting_for_function
     else:
-        return funcReport_Decorator(function)
+        return func_report_decorator(function)
 
 
-def arcToolReport(function=None, arcToolMessageBool=False, arcProgressorBool=False):
+def arc_tool_report(function=None, arcToolMessageBool=False, arcProgressorBool=False):
     """This decorator function is designed to be used as a wrapper with other GIS functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
 
-    def arcToolReport_Decorator(function):
+    def arc_tool_report_decorator(function):
         def funcWrapper(*args, **kwargs):
             try:
                 funcResult = function(*args, **kwargs)
@@ -94,15 +94,15 @@ def arcToolReport(function=None, arcToolMessageBool=False, arcProgressorBool=Fal
 
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
-            return arcToolReport_Decorator(function)
+            return arc_tool_report_decorator(function)
 
         return waiting_for_function
     else:
-        return arcToolReport_Decorator(function)
+        return arc_tool_report_decorator(function)
 
 
-@arcToolReport
-def arcPrint(string, progressor_Bool=False):
+@arc_tool_report
+def arc_print(string, progressor_Bool=False):
     """ This function is used to simplify using arcpy reporting for tool creation,if progressor bool is true it will
     create a tool label."""
     casted_string = str(string)
@@ -115,8 +115,8 @@ def arcPrint(string, progressor_Bool=False):
         print(casted_string)
 
 
-@arcToolReport
-def FieldExist(featureclass, fieldname):
+@arc_tool_report
+def field_exist(featureclass, fieldname):
     """ArcFunction
      Check if a field in a feature class field exists and return true it does, false if not.- David Wasserman"""
     fieldList = arcpy.ListFields(featureclass, fieldname)
@@ -127,12 +127,12 @@ def FieldExist(featureclass, fieldname):
         return False
 
 
-@arcToolReport
-def AddNewField(in_table, field_name, field_type, field_precision="#", field_scale="#", field_length="#",
-                field_alias="#", field_is_nullable="#", field_is_required="#", field_domain="#"):
+@arc_tool_report
+def add_new_field(in_table, field_name, field_type, field_precision="#", field_scale="#", field_length="#",
+                  field_alias="#", field_is_nullable="#", field_is_required="#", field_domain="#"):
     """ArcFunction
     Add a new field if it currently does not exist. Add field alone is slower than checking first.- David Wasserman"""
-    if FieldExist(in_table, field_name):
+    if field_exist(in_table, field_name):
         print(field_name + " Exists")
         arcpy.AddMessage(field_name + " Exists")
     else:
@@ -145,7 +145,7 @@ def AddNewField(in_table, field_name, field_type, field_precision="#", field_sca
 
 
 # Main Function
-def ChainedNearAnalysis(in_fc, near_features, search_radius=None, location=False, angle=False, method="PLANAR"):
+def chained_near_analysis(in_fc, near_features, search_radius=None, location=False, angle=False, method="PLANAR"):
     """This tool will conduct a near analysis that will add a new field for every Near Feature input into the
     Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every
     Near Feature rather than using the closest of all the near features input into the tool. This results in
@@ -165,30 +165,30 @@ def ChainedNearAnalysis(in_fc, near_features, search_radius=None, location=False
         for feature in near_features_list:
             desc=arcpy.Describe(feature.strip("'"))
             feature_name= str(desc.name)
-            arcPrint("Conducting NEAR Analysis with input feature class ({0}) and near feature ({1}).".format(input_fc_name,feature_name))
+            arc_print("Conducting NEAR Analysis with input feature class ({0}) and near feature ({1}).".format(input_fc_name, feature_name))
             arcpy.Near_analysis(in_fc,feature,search_radius,location,angle,method)
             new_dist_field_name= "DIST_"+feature_name
             new_angle_field_name= "ANGLE_"+feature_name
             new_x_field_name= "X_"+feature_name
             new_y_field_name= "Y_"+feature_name
-            arcPrint("Calculating Near Feature specific fields for {0}.".format(feature_name))
-            if FieldExist(in_fc,NEARDISTField):
+            arc_print("Calculating Near Feature specific fields for {0}.".format(feature_name))
+            if field_exist(in_fc, NEARDISTField):
                 valid_dist_field_name=arcpy.ValidateFieldName(new_dist_field_name,workspace)
-                AddNewField(in_fc,valid_dist_field_name,"DOUBLE",field_alias=new_dist_field_name)
+                add_new_field(in_fc, valid_dist_field_name, "DOUBLE", field_alias=new_dist_field_name)
                 arcpy.CalculateField_management(in_fc,valid_dist_field_name,"!NEAR_DIST!","PYTHON_9.3")
-            if FieldExist(in_fc,NEARXField):
+            if field_exist(in_fc, NEARXField):
                 valid_x_field_name=arcpy.ValidateFieldName(new_x_field_name,workspace)
-                AddNewField(in_fc,valid_x_field_name,"DOUBLE",field_alias=new_x_field_name)
+                add_new_field(in_fc, valid_x_field_name, "DOUBLE", field_alias=new_x_field_name)
                 arcpy.CalculateField_management(in_fc,valid_x_field_name,"!NEAR_X!","PYTHON_9.3")
-            if FieldExist(in_fc,NEARYField):
+            if field_exist(in_fc, NEARYField):
                 valid_y_field_name=arcpy.ValidateFieldName(new_y_field_name,workspace)
-                AddNewField(in_fc,valid_y_field_name,"DOUBLE",field_alias=new_y_field_name)
+                add_new_field(in_fc, valid_y_field_name, "DOUBLE", field_alias=new_y_field_name)
                 arcpy.CalculateField_management(in_fc,valid_y_field_name,"!NEAR_Y!","PYTHON_9.3")
-            if FieldExist(in_fc,NEARAngleField):
+            if field_exist(in_fc, NEARAngleField):
                 valid_angle_field_name=arcpy.ValidateFieldName(new_angle_field_name,workspace)
-                AddNewField(in_fc,valid_angle_field_name,"DOUBLE",field_alias=new_angle_field_name)
+                add_new_field(in_fc, valid_angle_field_name, "DOUBLE", field_alias=new_angle_field_name)
                 arcpy.CalculateField_management(in_fc,valid_angle_field_name,"!NEAR_ANGLE!","PYTHON_9.3")
-        arcPrint("Deleting NEAR Fields from last feature.")
+        arc_print("Deleting NEAR Fields from last feature.")
         try:
             arcpy.DeleteField_management(in_fc,NEARDISTField)
             arcpy.DeleteField_management(in_fc,NEARXField)
@@ -196,10 +196,10 @@ def ChainedNearAnalysis(in_fc, near_features, search_radius=None, location=False
             arcpy.DeleteField_management(in_fc,NEARAngleField)
             arcpy.DeleteField_management(in_fc,NEARFID)
         except:
-            arcPrint("Could not delete near fields. QAQC Outputs.")
+            arc_print("Could not delete near fields. QAQC Outputs.")
             pass
     except Exception as e:
-        arcPrint(str(e.args[0]))
+        arc_print(str(e.args[0]))
         print(e.args[0])
 
 
@@ -211,4 +211,4 @@ def ChainedNearAnalysis(in_fc, near_features, search_radius=None, location=False
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
-    ChainedNearAnalysis(input_features,near_features,search_radius,location,angle,method)
+    chained_near_analysis(input_features, near_features, search_radius, location, angle, method)

@@ -34,12 +34,11 @@ if_more_than_score = arcpy.GetParameter(4)
 
 # Function Definitions
 
-def funcReport(function=None, reportBool=False):
+def func_report(function=None, reportBool=False):
     """This decorator function is designed to be used as a wrapper with other functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
-
-    def funcReport_Decorator(function):
+    def func_report_decorator(function):
         def funcWrapper(*args, **kwargs):
             try:
                 funcResult = function(*args, **kwargs)
@@ -57,18 +56,17 @@ def funcReport(function=None, reportBool=False):
 
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
-            return funcReport_Decorator(function)
+            return func_report_decorator(function)
 
         return waiting_for_function
     else:
-        return funcReport_Decorator(function)
+        return func_report_decorator(function)
 
 
-def arcToolReport(function=None, arcToolMessageBool=False, arcProgressorBool=False):
+def arc_tool_report(function=None, arcToolMessageBool=False, arcProgressorBool=False):
     """This decorator function is designed to be used as a wrapper with other GIS functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
-
     def arcToolReport_Decorator(function):
         def funcWrapper(*args, **kwargs):
             try:
@@ -101,8 +99,8 @@ def arcToolReport(function=None, arcToolMessageBool=False, arcProgressorBool=Fal
         return arcToolReport_Decorator(function)
 
 
-@arcToolReport
-def arcPrint(string, progressor_Bool=False):
+@arc_tool_report
+def arc_print(string, progressor_Bool=False):
     """ This function is used to simplify using arcpy reporting for tool creation,if progressor bool is true it will
     create a tool label."""
     casted_string = str(string)
@@ -115,8 +113,8 @@ def arcPrint(string, progressor_Bool=False):
         print(casted_string)
 
 
-@arcToolReport
-def FieldExist(featureclass, fieldname):
+@arc_tool_report
+def field_exist(featureclass, fieldname):
     """ArcFunction
      Check if a field in a feature class field exists and return true it does, false if not.- David Wasserman"""
     fieldList = arcpy.ListFields(featureclass, fieldname)
@@ -127,12 +125,12 @@ def FieldExist(featureclass, fieldname):
         return False
 
 
-@arcToolReport
-def AddNewField(in_table, field_name, field_type, field_precision="#", field_scale="#", field_length="#",
-                field_alias="#", field_is_nullable="#", field_is_required="#", field_domain="#"):
+@arc_tool_report
+def add_new_field(in_table, field_name, field_type, field_precision="#", field_scale="#", field_length="#",
+                  field_alias="#", field_is_nullable="#", field_is_required="#", field_domain="#"):
     """ArcFunction
     Add a new field if it currently does not exist. Add field alone is slower than checking first.- David Wasserman"""
-    if FieldExist(in_table, field_name):
+    if field_exist(in_table, field_name):
         print(field_name + " Exists")
         arcpy.AddMessage(field_name + " Exists")
     else:
@@ -142,7 +140,7 @@ def AddNewField(in_table, field_name, field_type, field_precision="#", field_sca
                                   field_length,
                                   field_alias,
                                   field_is_nullable, field_is_required, field_domain)
-@arcToolReport
+@arc_tool_report
 def score_value(value,threshold,if_less_score=1,if_more_score=0):
     """This function is intended to take a value (proximity for example), and check if it is <= a threshold,
     and return a score for if it is less than or more than based on the passed parameters. Defaults to binary (0,1)"""
@@ -152,7 +150,7 @@ def score_value(value,threshold,if_less_score=1,if_more_score=0):
         return if_more_score
 
 # Main Function
-def ChainedScore(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_score=0):
+def chained_scoring_func(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_score=0):
     """This tool will score fields based a theshold, and return values to those fields based on if it is less than
     or more than the threshold. All fields treated the same. """
     try:
@@ -163,12 +161,12 @@ def ChainedScore(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_sc
         new_score_fields = [
             arcpy.ValidateFieldName("SCORE_{0}".format(str(i).replace("DIST_", "", 1).replace("ANGLE_", "", 1)),
                                     workspace) for i in fields_list]
-        arcPrint("Adding and Computing Score Fields.",True)
+        arc_print("Adding and Computing Score Fields.", True)
         for new_score_pair in zip(fields_list,new_score_fields):
             field_to_score= new_score_pair[0]
             new_score=new_score_pair[1]
-            AddNewField(in_fc,new_score,"DOUBLE",field_alias=new_score)
-            arcPrint("Computing score for field {0}. Returning {1} if value <= {2}, and {3} otherwise.".format(
+            add_new_field(in_fc, new_score, "DOUBLE", field_alias=new_score)
+            arc_print("Computing score for field {0}. Returning {1} if value <= {2}, and {3} otherwise.".format(
                     str(new_score),str(threshold),str(if_less_score),str(if_more_score)),True)
             try:
                 with arcpy.da.UpdateCursor(in_fc,[field_to_score,new_score]) as cursor:
@@ -176,10 +174,10 @@ def ChainedScore(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_sc
                         row[1]=score_value(row[0],threshold,if_less_score,if_more_score)
                         cursor.updateRow(row)
             except:
-                arcPrint("Could not process field {0}".format(new_score))
+                arc_print("Could not process field {0}".format(new_score))
 
     except Exception as e:
-        arcPrint(str(e.args[0]))
+        arc_print(str(e.args[0]))
         print(e.args[0])
 
 
@@ -190,4 +188,4 @@ def ChainedScore(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_sc
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
-    ChainedScore(input_features, score_fields, threshold, if_less_than_score, if_more_than_score)
+    chained_scoring_func(input_features, score_fields, threshold, if_less_than_score, if_more_than_score)
