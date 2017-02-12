@@ -38,26 +38,24 @@ def func_report(function=None, reportBool=False):
     """This decorator function is designed to be used as a wrapper with other functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
+
     def func_report_decorator(function):
-        def funcWrapper(*args, **kwargs):
+        def func_wrapper(*args, **kwargs):
             try:
-                funcResult = function(*args, **kwargs)
+                func_result = function(*args, **kwargs)
                 if reportBool:
                     print("Function:{0}".format(str(function.__name__)))
                     print("     Input(s):{0}".format(str(args)))
-                    print("     Ouput(s):{0}".format(str(funcResult)))
-                return funcResult
+                    print("     Ouput(s):{0}".format(str(func_result)))
+                return func_result
             except Exception as e:
                 print(
                     "{0} - function failed -|- Function arguments were:{1}.".format(str(function.__name__), str(args)))
                 print(e.args[0])
-
-        return funcWrapper
-
+        return func_wrapper
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
             return func_report_decorator(function)
-
         return waiting_for_function
     else:
         return func_report_decorator(function)
@@ -67,19 +65,19 @@ def arc_tool_report(function=None, arcToolMessageBool=False, arcProgressorBool=F
     """This decorator function is designed to be used as a wrapper with other GIS functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
       boolean is true the function will report inputs and outputs of a function.-David Wasserman"""
-    def arcToolReport_Decorator(function):
-        def funcWrapper(*args, **kwargs):
+    def arc_tool_report_decorator(function):
+        def func_wrapper(*args, **kwargs):
             try:
-                funcResult = function(*args, **kwargs)
+                func_result = function(*args, **kwargs)
                 if arcToolMessageBool:
                     arcpy.AddMessage("Function:{0}".format(str(function.__name__)))
                     arcpy.AddMessage("     Input(s):{0}".format(str(args)))
-                    arcpy.AddMessage("     Ouput(s):{0}".format(str(funcResult)))
+                    arcpy.AddMessage("     Ouput(s):{0}".format(str(func_result)))
                 if arcProgressorBool:
                     arcpy.SetProgressorLabel("Function:{0}".format(str(function.__name__)))
                     arcpy.SetProgressorLabel("     Input(s):{0}".format(str(args)))
-                    arcpy.SetProgressorLabel("     Ouput(s):{0}".format(str(funcResult)))
-                return funcResult
+                    arcpy.SetProgressorLabel("     Ouput(s):{0}".format(str(func_result)))
+                return func_result
             except Exception as e:
                 arcpy.AddMessage(
                         "{0} - function failed -|- Function arguments were:{1}.".format(str(function.__name__),
@@ -87,16 +85,13 @@ def arc_tool_report(function=None, arcToolMessageBool=False, arcProgressorBool=F
                 print(
                     "{0} - function failed -|- Function arguments were:{1}.".format(str(function.__name__), str(args)))
                 print(e.args[0])
-
-        return funcWrapper
-
+        return func_wrapper
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
-            return arcToolReport_Decorator(function)
-
+            return arc_tool_report_decorator(function)
         return waiting_for_function
     else:
-        return arcToolReport_Decorator(function)
+        return arc_tool_report_decorator(function)
 
 
 @arc_tool_report
