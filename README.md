@@ -1,7 +1,7 @@
 # ProximityAnalysis
 ArcGIS (10.4.1) Scripting Tools developed to aid with proximity analysis. Tools listed below.  
 
-#Chained Near (Analysis)
+# Chained Near (Analysis)
 This tool will conduct a chained near analysis creating multiple near proximity fields for each near feature class given to it.
 # Summary
 This tool will conduct a near analysis that will add a new field for every Near Feature input into the Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every Near Feature rather than using the closest of all the near features input into the tool. This results in many more fields, so use this only if you have a specific need to know proximity for every feature within the Input Feature class. Consider a Near Table if you want more detailed proximity information and are comfortable with a higher number of records.
@@ -59,7 +59,7 @@ This tool will conduct a near analysis that will add a new field for every Near 
 </tbody>
 </table>
 
-#Chained Scoring (Analysis)
+# Chained Scoring (Analysis)
 This tool score incoming features based on selected fields by checking if it is below a threshold for each field and then returning chosen values for if it is greater than or less than the threshold. 
 # Summary
 This tool will score every field selected by the tool, and return a value based on whether the value for that field (IE Proximity), is less than or equal to the set threshold. This tool is intended to be used with the Chained Near Analysis tool, and will even remove the "DIST_" or "ANGLE_" text elements of the new created field names when scoring proximity fields. 
