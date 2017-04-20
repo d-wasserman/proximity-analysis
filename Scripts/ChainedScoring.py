@@ -27,10 +27,16 @@ import os, sys, arcpy
 # Define input parameters
 input_features = arcpy.GetParameterAsText(0)
 score_fields = arcpy.GetParameterAsText(1)
+<<<<<<< HEAD
 threshold_upper = arcpy.GetParameter(2)
 threshold_lower = arcpy.GetParameter(3)
 if_within_score = arcpy.GetParameter(4)
 if_outside_score = arcpy.GetParameter(5)
+=======
+threshold = arcpy.GetParameter(2)
+if_less_than_score = arcpy.GetParameter(3)
+if_more_than_score = arcpy.GetParameter(4)
+>>>>>>> origin/master
 
 
 # Function Definitions
@@ -137,6 +143,7 @@ def add_new_field(in_table, field_name, field_type, field_precision="#", field_s
                                   field_alias,
                                   field_is_nullable, field_is_required, field_domain)
 @arc_tool_report
+<<<<<<< HEAD
 def score_value(value,threshold_upper,threshold_lower=0,if_within_score=1,if_outside_score=0):
     """This function is intended to take a value (proximity for example), and check if it is <= a threshold,
     and return a score for if it is less than or more than based on the passed parameters. Defaults to binary (0,1)"""
@@ -148,6 +155,19 @@ def score_value(value,threshold_upper,threshold_lower=0,if_within_score=1,if_out
 # Main Function
 def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=0, if_less_score=1, if_more_score=0):
     """This tool will score fields based a  upper and lower bound threhsold, and return values to those fields based on if it is less than
+=======
+def score_value(value,threshold,if_less_score=1,if_more_score=0):
+    """This function is intended to take a value (proximity for example), and check if it is <= a threshold,
+    and return a score for if it is less than or more than based on the passed parameters. Defaults to binary (0,1)"""
+    if value<=threshold:
+        return if_less_score
+    else:
+        return if_more_score
+
+# Main Function
+def chained_scoring_func(in_fc, scoring_fields, threshold=0, if_less_score=1, if_more_score=0):
+    """This tool will score fields based a theshold, and return values to those fields based on if it is less than
+>>>>>>> origin/master
     or more than the threshold. All fields treated the same. """
     try:
         arcpy.env.overwriteOutput = True
@@ -162,12 +182,21 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=
             field_to_score= new_score_pair[0]
             new_score=new_score_pair[1]
             add_new_field(in_fc, new_score, "DOUBLE", field_alias=new_score)
+<<<<<<< HEAD
             arc_print("Computing score for field {0}. Returning {1} if value <= {2} and >= {3}, and {4} otherwise.".format(
                     str(new_score),str(if_less_score),str(threshold_upper),str(threshold_lower),str(if_more_score)),True)
             try:
                 with arcpy.da.UpdateCursor(in_fc,[field_to_score,new_score]) as cursor:
                     for row in cursor:
                         row[1]=score_value(row[0],threshold_upper,threshold_lower,if_less_score,if_more_score)
+=======
+            arc_print("Computing score for field {0}. Returning {1} if value <= {2}, and {3} otherwise.".format(
+                    str(new_score),str(threshold),str(if_less_score),str(if_more_score)),True)
+            try:
+                with arcpy.da.UpdateCursor(in_fc,[field_to_score,new_score]) as cursor:
+                    for row in cursor:
+                        row[1]=score_value(row[0],threshold,if_less_score,if_more_score)
+>>>>>>> origin/master
                         cursor.updateRow(row)
             except:
                 arc_print("Could not process field {0}".format(new_score))
@@ -184,4 +213,8 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
+<<<<<<< HEAD
     chained_scoring_func(input_features, score_fields, threshold_upper, threshold_lower, if_within_score, if_outside_score)
+=======
+    chained_scoring_func(input_features, score_fields, threshold, if_less_than_score, if_more_than_score)
+>>>>>>> origin/master

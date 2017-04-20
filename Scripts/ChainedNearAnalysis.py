@@ -52,6 +52,10 @@ def func_report(function=None, reportBool=False):
                 print(
                     "{0} - function failed -|- Function arguments were:{1}.".format(str(function.__name__), str(args)))
                 print(e.args[0])
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         return func_wrapper
 
     if not function:  # User passed in a bool argument
