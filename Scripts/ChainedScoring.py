@@ -1,7 +1,6 @@
 # --------------------------------
-# Name: ChainedNearAnalysis.py
-# Purpose: This tool will conduct a near analysis that will add a new field for every Near Feature input into the
-# Input Features dataset.
+# Name: ChainedScoring.py
+# Purpose: This tool will add scoring fields for every field past based on a threshold, and two return values.
 # Current Owner: David Wasserman
 # Last Modified: 09/18/2016
 # Copyright:   (c) CoAdapt
@@ -26,12 +25,14 @@
 import os, sys, arcpy
 
 # Define input parameters
-input_features= arcpy.GetParameterAsText(0)
-near_features= arcpy.GetParameterAsText(1)
-search_radius= arcpy.GetParameter(2)
-location= arcpy.GetParameter(3)
-angle=arcpy.GetParameter(4)
-method=arcpy.GetParameterAsText(5)
+input_features = arcpy.GetParameterAsText(0)
+score_fields = arcpy.GetParameterAsText(1)
+threshold_upper = arcpy.GetParameter(2)
+threshold_lower = arcpy.GetParameter(3)
+if_within_score = arcpy.GetParameter(4)
+if_outside_score = arcpy.GetParameter(5)
+
+
 # Function Definitions
 
 def func_report(function=None, reportBool=False):
@@ -53,11 +54,9 @@ def func_report(function=None, reportBool=False):
                     "{0} - function failed -|- Function arguments were:{1}.".format(str(function.__name__), str(args)))
                 print(e.args[0])
         return func_wrapper
-
     if not function:  # User passed in a bool argument
         def waiting_for_function(function):
             return func_report_decorator(function)
-
         return waiting_for_function
     else:
         return func_report_decorator(function)
@@ -137,66 +136,45 @@ def add_new_field(in_table, field_name, field_type, field_precision="#", field_s
                                   field_length,
                                   field_alias,
                                   field_is_nullable, field_is_required, field_domain)
-
+@arc_tool_report
+def score_value(value,threshold_upper,threshold_lower=0,if_within_score=1,if_outside_score=0):
+    """This function is intended to take a value (proximity for example), and check if it is <= a threshold,
+    and return a score for if it is less than or more than based on the passed parameters. Defaults to binary (0,1)"""
+    if value>=threshold_lower and value<=threshold_upper:
+        return if_within_score
+    else:
+        return if_outside_score
 
 # Main Function
-def chained_near_analysis(in_fc, near_features, search_radius=None, location=False, angle=False, method="PLANAR"):
-    """This tool will conduct a near analysis that will add a new field for every Near Feature input into the
-    Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every
-    Near Feature rather than using the closest of all the near features input into the tool. This results in
-     many more fields, so use this only if you have a specific need to know proximity for every feature within
-     the Input Feature class. Consider a Near Table if you want more detailed proximity information and are comfortable
-      with a higher number of records"""
+def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=0, if_less_score=1, if_more_score=0):
+    """This tool will score fields based a  upper and lower bound threhsold, and return values to those fields based on if it is less than
+    or more than the threshold. All fields treated the same. """
     try:
         arcpy.env.overwriteOutput = True
-        workspace=os.path.dirname(in_fc)
-        near_features_list=str(near_features).split(";")
-        input_fc_name=os.path.split(in_fc)[1]
-        NEARFID="NEAR_FID"
-        NEARDISTField="NEAR_DIST"
-        NEARXField="NEAR_X"
-        NEARYField="NEAR_Y"
-        NEARAngleField="NEAR_ANGLE"
-        for feature in near_features_list:
-            desc=arcpy.Describe(feature.strip("'"))
-            feature_name= str(desc.name)
-            arc_print("Conducting NEAR Analysis with input feature class ({0}) and near feature ({1}).".format(input_fc_name, feature_name))
-            arcpy.Near_analysis(in_fc,feature,search_radius,location,angle,method)
-            new_dist_field_name= "DIST_"+feature_name
-            new_angle_field_name= "ANGLE_"+feature_name
-            new_x_field_name= "X_"+feature_name
-            new_y_field_name= "Y_"+feature_name
-            arc_print("Calculating Near Feature specific fields for {0}.".format(feature_name))
-            if field_exist(in_fc, NEARDISTField):
-                valid_dist_field_name=arcpy.ValidateFieldName(new_dist_field_name,workspace)
-                add_new_field(in_fc, valid_dist_field_name, "DOUBLE", field_alias=new_dist_field_name)
-                arcpy.CalculateField_management(in_fc,valid_dist_field_name,"!NEAR_DIST!","PYTHON_9.3")
-            if field_exist(in_fc, NEARXField):
-                valid_x_field_name=arcpy.ValidateFieldName(new_x_field_name,workspace)
-                add_new_field(in_fc, valid_x_field_name, "DOUBLE", field_alias=new_x_field_name)
-                arcpy.CalculateField_management(in_fc,valid_x_field_name,"!NEAR_X!","PYTHON_9.3")
-            if field_exist(in_fc, NEARYField):
-                valid_y_field_name=arcpy.ValidateFieldName(new_y_field_name,workspace)
-                add_new_field(in_fc, valid_y_field_name, "DOUBLE", field_alias=new_y_field_name)
-                arcpy.CalculateField_management(in_fc,valid_y_field_name,"!NEAR_Y!","PYTHON_9.3")
-            if field_exist(in_fc, NEARAngleField):
-                valid_angle_field_name=arcpy.ValidateFieldName(new_angle_field_name,workspace)
-                add_new_field(in_fc, valid_angle_field_name, "DOUBLE", field_alias=new_angle_field_name)
-                arcpy.CalculateField_management(in_fc,valid_angle_field_name,"!NEAR_ANGLE!","PYTHON_9.3")
-        arc_print("Deleting NEAR Fields from last feature.")
-        try:
-            arcpy.DeleteField_management(in_fc,NEARDISTField)
-            arcpy.DeleteField_management(in_fc,NEARXField)
-            arcpy.DeleteField_management(in_fc,NEARYField)
-            arcpy.DeleteField_management(in_fc,NEARAngleField)
-            arcpy.DeleteField_management(in_fc,NEARFID)
-        except:
-            arc_print("Could not delete near fields. QAQC Outputs.")
-            pass
+        desc_in_fc = arcpy.Describe(in_fc)
+        workspace = desc_in_fc.catalogPath
+        fields_list = str(scoring_fields).split(";")
+        new_score_fields = [
+            arcpy.ValidateFieldName("SCORE_{0}".format(str(i).replace("DIST_", "", 1).replace("ANGLE_", "", 1)),
+                                    workspace) for i in fields_list]
+        arc_print("Adding and Computing Score Fields.", True)
+        for new_score_pair in zip(fields_list,new_score_fields):
+            field_to_score= new_score_pair[0]
+            new_score=new_score_pair[1]
+            add_new_field(in_fc, new_score, "DOUBLE", field_alias=new_score)
+            arc_print("Computing score for field {0}. Returning {1} if value <= {2} and >= {3}, and {4} otherwise.".format(
+                    str(new_score),str(if_less_score),str(threshold_upper),str(threshold_lower),str(if_more_score)),True)
+            try:
+                with arcpy.da.UpdateCursor(in_fc,[field_to_score,new_score]) as cursor:
+                    for row in cursor:
+                        row[1]=score_value(row[0],threshold_upper,threshold_lower,if_less_score,if_more_score)
+                        cursor.updateRow(row)
+            except:
+                arc_print("Could not process field {0}".format(new_score))
+
     except Exception as e:
         arc_print(str(e.args[0]))
         print(e.args[0])
-
 
 
 # End do_analysis function
@@ -206,4 +184,4 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
-    chained_near_analysis(input_features, near_features, search_radius, location, angle, method)
+    chained_scoring_func(input_features, score_fields, threshold_upper, threshold_lower, if_within_score, if_outside_score)
