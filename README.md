@@ -87,26 +87,32 @@ This tool will score every field selected by the tool, and return a value based 
 <tr>
 <td class="info">Fields_to_Score</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>These are the fields that will be compared against the threshold value chosen, and then will be used to generate new scoring fields based on the passed field names. </SPAN></P></DIV></DIV><div class="noContent" style="text-align:center; margin-top: -1em">___________________</div><br />
-<span style="font-weight: bold">Python Reference</span><br /><DIV STYLE="text-align:Left;"><P STYLE="font-size:12ptmargin:0 0 0 0;"><SPAN><SPAN>new_score_fields</SPAN></SPAN><SPAN><SPAN> </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>= </SPAN></SPAN><SPAN><SPAN>[</SPAN></SPAN><SPAN /><SPAN><SPAN>    arcpy.ValidateFieldName(</SPAN></SPAN><SPAN><SPAN>"SCORE_{0}"</SPAN></SPAN><SPAN><SPAN>.format(</SPAN></SPAN><SPAN><SPAN>str</SPAN></SPAN><SPAN><SPAN>(i).replace(</SPAN></SPAN><SPAN><SPAN>"DIST_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>).replace(</SPAN></SPAN><SPAN><SPAN>"ANGLE_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>)),</SPAN></SPAN><SPAN /><SPAN><SPAN>                            workspace) </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>for </SPAN></SPAN><SPAN><SPAN>i </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>in </SPAN></SPAN><SPAN><SPAN>fields_list]</SPAN></SPAN></P><DIV><P><SPAN /></P></DIV></DIV></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN>These are the fields that will be compared against the threshold value chosen, and then will be used to generate new scoring fields based on the passed field names. </SPAN></P></DIV></DIV></DIV><div class="noContent" style="text-align:center; margin-top: -1em">___________________</div><br />
+<span style="font-weight: bold">Python Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN><SPAN>new_score_fields</SPAN></SPAN><SPAN><SPAN /></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>= </SPAN></SPAN><SPAN><SPAN>[</SPAN></SPAN><SPAN /><SPAN><SPAN>arcpy.ValidateFieldName(</SPAN></SPAN><SPAN><SPAN>"SCORE_{0}"</SPAN></SPAN><SPAN><SPAN>.format(</SPAN></SPAN><SPAN><SPAN>str</SPAN></SPAN><SPAN><SPAN>(i).replace(</SPAN></SPAN><SPAN><SPAN>"DIST_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>).replace(</SPAN></SPAN><SPAN><SPAN>"ANGLE_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>)),</SPAN></SPAN><SPAN /><SPAN><SPAN>workspace) </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>for </SPAN></SPAN><SPAN><SPAN>i </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>in </SPAN></SPAN><SPAN><SPAN>fields_list]</SPAN></SPAN></P><P><SPAN /></P></DIV></DIV></DIV></td>
 <td class="info" align="left">Multiple Value</td>
 </tr>
 <tr>
-<td class="info">Score_Threshold</td>
+<td class="info">Score_Threshold_Upper</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Threshold the field values will be compared against. </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the upper value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold. </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 <tr>
-<td class="info">Score_If_&lt;__Threshold</td>
+<td class="info">Score_Threshold_Lower</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Value returned if field value is less than or equal to the threshold passed. </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the lower value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 <tr>
-<td class="info">Score_If_&gt;_Threshold</td>
+<td class="info">Score_If_WithinThreshold</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Value returned if field value is greater than the threshold passed. </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is within the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Double</td>
+</tr>
+<tr>
+<td class="info">Score_If_Outside_Threshold</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is outside the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 </tbody>
