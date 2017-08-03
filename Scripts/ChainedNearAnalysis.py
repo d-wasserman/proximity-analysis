@@ -3,7 +3,7 @@
 # Purpose: This tool will conduct a near analysis that will add a new field for every Near Feature input into the
 # Input Features dataset.
 # Current Owner: David Wasserman
-# Last Modified: 09/18/2016
+# Last Modified: 08/03/2017
 # Copyright:   (c) CoAdapt
 # ArcGIS Version:   10.4.1
 # Python Version:   2.7
@@ -25,13 +25,7 @@
 # Import Modules
 import os, sys, arcpy
 
-# Define input parameters
-input_features= arcpy.GetParameterAsText(0)
-near_features= arcpy.GetParameterAsText(1)
-search_radius= arcpy.GetParameter(2)
-location= arcpy.GetParameter(3)
-angle=arcpy.GetParameter(4)
-method=arcpy.GetParameterAsText(5)
+
 # Function Definitions
 
 def func_report(function=None, reportBool=False):
@@ -206,4 +200,11 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
+    # Define input parameters
+    input_features = arcpy.GetParameterAsText(0)
+    near_features = arcpy.GetParameterAsText(1)
+    search_radius = arcpy.GetParameter(2)
+    location = arcpy.GetParameter(3)
+    angle = arcpy.GetParameter(4)
+    method = arcpy.GetParameterAsText(5)
     chained_near_analysis(input_features, near_features, search_radius, location, angle, method)

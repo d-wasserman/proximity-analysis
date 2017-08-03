@@ -2,7 +2,7 @@
 # Name: ChainedScoring.py
 # Purpose: This tool will add scoring fields for every field past based on a threshold, and two return values.
 # Current Owner: David Wasserman
-# Last Modified: 09/18/2016
+# Last Modified: 08/03/2017
 # Copyright:   (c) CoAdapt
 # ArcGIS Version:   10.4.1
 # Python Version:   2.7
@@ -23,14 +23,6 @@
 # --------------------------------
 # Import Modules
 import os, sys, arcpy
-
-# Define input parameters
-input_features = arcpy.GetParameterAsText(0)
-score_fields = arcpy.GetParameterAsText(1)
-threshold_upper = arcpy.GetParameter(2)
-threshold_lower = arcpy.GetParameter(3)
-if_within_score = arcpy.GetParameter(4)
-if_outside_score = arcpy.GetParameter(5)
 
 
 # Function Definitions
@@ -184,4 +176,11 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=
 # as a geoprocessing script tool, or as a module imported in
 # another script
 if __name__ == '__main__':
+    # Define input parameters
+    input_features = arcpy.GetParameterAsText(0)
+    score_fields = arcpy.GetParameterAsText(1)
+    threshold_upper = arcpy.GetParameter(2)
+    threshold_lower = arcpy.GetParameter(3)
+    if_within_score = arcpy.GetParameter(4)
+    if_outside_score = arcpy.GetParameter(5)
     chained_scoring_func(input_features, score_fields, threshold_upper, threshold_lower, if_within_score, if_outside_score)
