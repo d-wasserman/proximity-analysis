@@ -144,7 +144,7 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
     try:
         arcpy.env.overwriteOutput = True
         workspace=os.path.dirname(in_fc)
-        near_features_list=str(near_features).split(";")
+        near_features_list=near_features
         input_fc_name=os.path.split(in_fc)[1]
         NEARFID="NEAR_FID"
         NEARDISTField="NEAR_DIST"
@@ -202,7 +202,7 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
 if __name__ == '__main__':
     # Define input parameters
     input_features = arcpy.GetParameterAsText(0)
-    near_features = arcpy.GetParameterAsText(1)
+    near_features = str(arcpy.GetParameterAsText(1)).split(";")
     search_radius = arcpy.GetParameter(2)
     location = arcpy.GetParameter(3)
     angle = arcpy.GetParameter(4)

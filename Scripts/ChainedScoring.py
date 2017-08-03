@@ -145,7 +145,7 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=
         arcpy.env.overwriteOutput = True
         desc_in_fc = arcpy.Describe(in_fc)
         workspace = desc_in_fc.catalogPath
-        fields_list = str(scoring_fields).split(";")
+        fields_list = scoring_fields
         new_score_fields = [
             arcpy.ValidateFieldName("SCORE_{0}".format(str(i).replace("DIST_", "", 1).replace("ANGLE_", "", 1)),
                                     workspace) for i in fields_list]
@@ -178,7 +178,7 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper,threshold_lower=
 if __name__ == '__main__':
     # Define input parameters
     input_features = arcpy.GetParameterAsText(0)
-    score_fields = arcpy.GetParameterAsText(1)
+    score_fields = str(arcpy.GetParameterAsText(1)).split(";")
     threshold_upper = arcpy.GetParameter(2)
     threshold_lower = arcpy.GetParameter(3)
     if_within_score = arcpy.GetParameter(4)
