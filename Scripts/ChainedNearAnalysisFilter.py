@@ -3,7 +3,7 @@
 # Purpose: This tool will conduct a near analysis that will add a new field for every Near Feature created by a filter
 # using the Make Feature Layer tool on every unique attribute in a near features field.
 # Current Owner: David Wasserman
-# Last Modified: 08/03/2017
+# Last Modified: 09/08/2017
 # Copyright:   (c) CoAdapt
 # ArcGIS Version:   10.4.1
 # Python Version:   2.7
@@ -179,11 +179,9 @@ def arc_unique_values(table, field, filter_falsy=False):
 # Main Function
 def chained_near_analysis_filter(in_fc, near_feature, near_filter_field, search_radius=None, location=False,
                                  angle=False, method="PLANAR"):
-    """This tool will conduct a near analysis that will add a new field for every Near Feature input into the
-    Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every
-    Near Feature rather than using the closest of all the near features input into the tool. This results in
-     many more fields, so use this only if you have a specific need to know proximity for every feature within
-     the Input Feature class. Consider a Near Table if you want more detailed proximity information and are comfortable
+    """This tool will conduct a near analysis that will add a new field for every feature layer genereated as the result
+    of a make feature layer querying every unique value of a chosen field in the near feature class.
+    Consider a Near Table if you want more detailed proximity information and are comfortable
       with a higher number of records"""
     try:
         arcpy.env.overwriteOutput = True
