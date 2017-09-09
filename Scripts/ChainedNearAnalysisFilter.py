@@ -228,6 +228,7 @@ def chained_near_analysis_filter(in_fc, near_feature, near_filter_field, search_
             if field_exist(in_fc, NEARFID) and fid:
                 valid_fid_field_name = arcpy.ValidateFieldName(new_fid_field_name, workspace)
                 add_new_field(in_fc, valid_fid_field_name, "DOUBLE", field_alias=new_fid_field_name)
+                arcpy.CalculateField_management(in_fc, valid_fid_field_name, "!NEAR_FID!", "PYTHON_9.3")    
         arc_print("Deleting NEAR Fields from last feature.")
         try:
             arcpy.DeleteField_management(in_fc, NEARDISTField)
