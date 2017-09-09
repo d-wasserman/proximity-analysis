@@ -3,7 +3,7 @@
 # Purpose: This tool will conduct a near analysis that will add a new field for every Near Feature input into the
 # Input Features dataset.
 # Current Owner: David Wasserman
-# Last Modified: 08/03/2017
+# Last Modified: 09/08/2017
 # Copyright:   (c) CoAdapt
 # ArcGIS Version:   10.4.1
 # Python Version:   2.7
@@ -134,7 +134,8 @@ def add_new_field(in_table, field_name, field_type, field_precision="#", field_s
 
 
 # Main Function
-def chained_near_analysis(in_fc, near_features, search_radius=None, location=False, angle=False, method="PLANAR"):
+def chained_near_analysis(in_fc, near_features, search_radius=None, location=False, angle=False,fid=False,
+                          method="PLANAR"):
     """This tool will conduct a near analysis that will add a new field for every Near Feature input into the
     Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every
     Near Feature rather than using the closest of all the near features input into the tool. This results in
@@ -158,6 +159,7 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
             arcpy.Near_analysis(in_fc,feature,search_radius,location,angle,method)
             new_dist_field_name= "DIST_"+feature_name
             new_angle_field_name= "ANGLE_"+feature_name
+            new_fid_field_name = "FID_"+feature_name
             new_x_field_name= "X_"+feature_name
             new_y_field_name= "Y_"+feature_name
             arc_print("Calculating Near Feature specific fields for {0}.".format(feature_name))
@@ -177,6 +179,10 @@ def chained_near_analysis(in_fc, near_features, search_radius=None, location=Fal
                 valid_angle_field_name=arcpy.ValidateFieldName(new_angle_field_name,workspace)
                 add_new_field(in_fc, valid_angle_field_name, "DOUBLE", field_alias=new_angle_field_name)
                 arcpy.CalculateField_management(in_fc,valid_angle_field_name,"!NEAR_ANGLE!","PYTHON_9.3")
+            if field_exist(in_fc,NEARFID) and fid:
+                valid_fid_field_name = arcpy.ValidateFieldName(new_fid_field_name, workspace)
+                add_new_field(in_fc, valid_fid_field_name, "DOUBLE", field_alias=new_fid_field_name)
+                arcpy.CalculateField_management(in_fc,valid_fid_field_name, "!NEAR_FID!", "PYTHON_9.3")
         arc_print("Deleting NEAR Fields from last feature.")
         try:
             arcpy.DeleteField_management(in_fc,NEARDISTField)
@@ -206,5 +212,6 @@ if __name__ == '__main__':
     search_radius = arcpy.GetParameter(2)
     location = arcpy.GetParameter(3)
     angle = arcpy.GetParameter(4)
-    method = arcpy.GetParameterAsText(5)
-    chained_near_analysis(input_features, near_features, search_radius, location, angle, method)
+    fid = arcpy.GetParameter(5)
+    method = arcpy.GetParameterAsText(6)
+    chained_near_analysis(input_features, near_features, search_radius, location, angle,fid, method)
