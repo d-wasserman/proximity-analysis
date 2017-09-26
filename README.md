@@ -200,3 +200,49 @@ This tool will score every field selected by the tool, and return a value based 
 </tr>
 </tbody>
 </table>
+
+# Relative Proximity Reclassification (DataDrivenReclass)
+This tool is designed to aid in the creation of data driven suitability layers. The tool takes a reference layer and a variable layer as inputs. The reference layer represents the features that you want to create suitabilities for ("Single Family Residential"), and the variable layer represents the variable that relates to the reference layer (Parks for Recreation).
+# Summary
+This tool is designed to aid in the creation of data driven suitability layers. The tool takes a reference layer and a variable layer as inputs. The reference layer represents the features that you want to create suitabilities for ("Single Family Residential"), and the variable layer represents the variable that relates to the reference layer (Parks for Recreation). Based on the average and standard deviation of the distance each object in the reference layer is from the variable layer, a euclidean distance away from the variable layer is reclassified by a remap table that reclassies the mean to be the top value with a reduction in suitability value for every quarter standard deviation. 
+
+# Parameters
+<table width="100%" border="0" cellpadding="5">
+<tbody>
+<tr>
+<th width="30%">
+<b>Parameter</b>
+</th>
+<th width="50%">
+<b>Explanation</b>
+</th>
+<th width="20%">
+<b>Data Type</b>
+</th>
+</tr>
+<tr>
+<td class="info">Reference_Layer</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN /></P><P><SPAN>This input is what you want a suitability of and serves as the "reference layer" that is used to create the statistics that drive the reclassification based on this layers proximity to the variable layer. For example, in the illustration single family residential parcels are used as this input. </SPAN></P></DIV></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Feature Class</td>
+</tr>
+<tr>
+<td class="info">Variable_Layer</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This input is the variable that corresponds to the suitability layer, and from this input a Euclidean distance raster will be created and reclassified based on its proximity statistics from to the suitability layer. For example, in the illustration above retail parcels are used to create the output.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Double</td>
+</tr>
+<tr>
+<td class="info">Reclassified_Suitability_Layer</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the output destination for the reclassified suitability input raster. Example above shows the reclassified raster going from green to red. This might need to be reclassified again if the variable of interest is not an attractor variable (flpping it). Keep the name under 13 characters.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Double</td>
+</tr>
+<tr>
+<td class="info">Invert_Raster</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>If checked, the output raster will be inverted so that the max value of 9 is assigned to values further away from the reference layer.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Double</td>
+</tr>
+</tbody>
+</table>

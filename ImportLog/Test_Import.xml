@@ -1,0 +1,40 @@
+<ImportMXDLog>	<Messages>
+		<FileName>D:\Documents\Github\ProximityAnalysis\Test.mxd</FileName>
+		<Message>
+			<Name></Name>
+			<MessageType>Warning</MessageType>
+			<Severity>High</Severity>
+			<Description>Basemap Layers cannot be published directly to a service</Description>
+			<Code>00037</Code>
+			<ComponentName>Basemap</ComponentName>
+			<ComponentType>Layer</ComponentType>
+</Message>
+		<Message>
+			<Name></Name>
+			<MessageType>Warning</MessageType>
+			<Severity>High</Severity>
+			<Description>Basemap Layers cannot be published directly to a service</Description>
+			<Code>00037</Code>
+			<ComponentName>Basemap</ComponentName>
+			<ComponentType>Layer</ComponentType>
+</Message>
+		<Message>
+			<Name></Name>
+			<MessageType>Warning</MessageType>
+			<Severity>Medium</Severity>
+			<Description>Legends imported into ArcGIS Pro may appear differently due to improvements in the fitting strategy. Modifications to the default appearance may be required.</Description>
+			<Code>20038</Code>
+			<ComponentName>Test</ComponentName>
+			<ComponentType>Layout</ComponentType>
+</Message>
+		<Message>
+			<Name></Name>
+			<MessageType>Warning</MessageType>
+			<Severity>Medium</Severity>
+			<Description>Due to the differences between mxds and projects, some dynamic text tags may have changed during the import process.</Description>
+			<Code>20044</Code>
+			<ComponentName>Test</ComponentName>
+			<ComponentType>Layout</ComponentType>
+</Message>
+</Messages>
+</ImportMXDLog>
