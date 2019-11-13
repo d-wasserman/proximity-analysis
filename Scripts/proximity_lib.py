@@ -23,7 +23,10 @@
 # --------------------------------
 # Import Modules
 import os, sys, arcpy
-
+try:
+    import pandas as pd
+except:
+    arcpy.AddError("Library requires that the pandas library is installed.")
 
 # Function Definitions
 
@@ -109,12 +112,14 @@ def arc_print(string, progressor_Bool=False):
 
 
 @arc_tool_report
-def field_exist(featureclass, fieldname):
+def field_exist(feature_class, field_name):
     """ArcFunction
-     Check if a field in a feature class field exists and return true it does, false if not.- David Wasserman"""
-    fieldList = arcpy.ListFields(featureclass, fieldname)
+     Check if a field in a feature class field exists and return true it does, false if not.
+     @param - featureclass - input feature class to check fields against
+     @param - fieldname - the field name being searched for"""
+    fieldList = arcpy.ListFields(feature_class, field_name)
     fieldCount = len(fieldList)
-    if (fieldCount >= 1) and fieldname.strip():  # If there is one or more of this field return true
+    if (fieldCount >= 1) and field_name.strip():  # If there is one or more of this field return true
         return True
     else:
         return False
@@ -173,3 +178,22 @@ def arc_unique_values(table, field, filter_falsy=False):
             return sorted({row[0] for row in cursor if row[0]})
         else:
             return sorted({row[0] for row in cursor})
+
+
+@arc_tool_report
+def arcgis_table_to_df(in_fc, input_fields=None, query=""):
+    """Function will convert an arcgis table into a pandas dataframe with an object ID index, and the selected
+    input fields using an arcpy.da.SearchCursor.
+    :param - in_fc - input feature class or table to convert
+    :param - input_fields - fields to input to a da search cursor for retrieval
+    :param - query - sql query to grab appropriate values
+    :returns - pandas.DataFrame"""
+    OIDFieldName = arcpy.Describe(in_fc).OIDFieldName
+    if input_fields:
+        final_fields = [OIDFieldName] + input_fields
+    else:
+        final_fields = [field.name for field in arcpy.ListFields(in_fc)]
+    data = [row for row in arcpy.da.SearchCursor(in_fc,final_fields,where_clause=query)]
+    fc_dataframe = pd.DataFrame(data,columns=final_fields)
+    fc_dataframe = fc_dataframe.set_index(OIDFieldName,drop=True)
+    return fc_dataframe
