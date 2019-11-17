@@ -78,26 +78,50 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
         fc_df = pl.arcgis_table_to_df(output_feature_class, fc_fields)
         fc_df = fc_df.set_index(feature_class_join_field)
         swm_df_w_data = pd.merge(swm_df, fc_df, how="left", left_index=True, right_index=True)
-        swm_df_grps = swm_df_w_data.groupby(swm_df_join_field)
         valid_statistics = ["sum", "mean", "std"]
         statistics_to_compute = [i for i in statistics_to_compute if i in valid_statistics]
-        # if not use_weights:
-        swm_df_stats = swm_df_grps[neighbor_fields].agg(statistics_to_compute)
-        swm_df_stats.columns = ["_".join(x) for x in swm_df_stats.columns.ravel()]
+        if not use_weights:
+            pl.arc_print("Computing non-weighted neighborhood statistics...")
+            swm_df_grps = swm_df_w_data.groupby(swm_df_join_field)
+            swm_df_stats = swm_df_grps[neighbor_fields].agg(statistics_to_compute)
+            swm_df_stats.columns = ["_".join(x) for x in swm_df_stats.columns.ravel()]
         # work in progress - next commit.
-        # else:  # Use weights
-        #     swm_df_stats_agg_dict = {}
-        #     if "sum" in statistics_to_compute:
-        #         swm_df_stats_agg_dict.update(
-        #             {i: {"sum": lambda x: x.dot(x[swm_df_weight])} for i in neighbor_fields})
-        #     if "mean" in statistics_to_compute:
-        #         swm_df_stats_agg_dict.update(
-        #             {i: {"mean": lambda x: np.average(x,weights=x[swm_df_weight])} for i in neighbor_fields})
-        #     if "std" in statistics_to_compute:
-        #         swm_df_stats_agg_dict.update(
-        #             {i: {"std": lambda x: weighted_standard_deviation(x,x[swm_df_weight])} for i in neighbor_fields})
-        #     swm_df_stats = swm_df_grps.agg(swm_df_stats_agg_dict)
-        # print(swm_df_stats)
+        else:  # Use weights
+            pl.arc_print("Computing weighted neighborhood statistics...")
+            neighbor_fields.append(swm_df_weight)
+            product_fields = []
+            sum_stats, mean_stats, std_stats = None, None, None
+            for field in neighbor_fields:
+                product_field = "temp_prod_" + str(field)
+                swm_df_w_data[product_field] = swm_df_w_data[field] * swm_df_w_data[swm_df_weight]
+                product_fields.append(product_field)  # create weighted products
+            swm_df_grps = swm_df_w_data.groupby(swm_df_join_field)
+            if "sum" in statistics_to_compute:
+                pl.arc_print("Computing weighted sum...")
+                swm_df_stats = swm_df_grps[product_fields].agg("sum")
+                sum_stats = swm_df_stats.copy()
+                sum_stats.columns = ["w_sum_" + i for i in neighbor_fields]
+            if "mean" in statistics_to_compute:
+                pl.arc_print("Computing weighted mean...")
+                swm_df_stats = swm_df_grps[product_fields].agg("sum")
+                mean_stats = swm_df_stats.copy()
+                weights_sum = swm_df_grps[swm_df_weight].agg("sum")
+                mean_stats = mean_stats.divide(weights_sum, axis="index")
+                mean_stats.columns = ["w_mean_" + i for i in neighbor_fields]
+            if "std" in statistics_to_compute:
+                pl.arc_print("Computing weighted standard deviation...")
+                arcpy.AddWarning("Weighted standard deviation is not supported yet...using regular STD...")
+                swm_df_stats = swm_df_grps[neighbor_fields].agg("std")
+                std_stats = swm_df_stats.copy()
+                std_stats.columns = ["w_std_" + i for i in neighbor_fields]
+            swm_df_stats = None
+            for potential_statistic_df in [sum_stats, mean_stats, std_stats]:
+                if potential_statistic_df is None:
+                    pass
+                elif swm_df_stats is None:
+                    swm_df_stats = potential_statistic_df
+                else:
+                    swm_df_stats = pd.concat([swm_df_stats, potential_statistic_df], axis=1)
         df_join_index_field = "DFJNIndex"
         swm_df_stats[df_join_index_field] = swm_df_stats.index
         pl.arc_print("Exporting new percentile dataframe to structured numpy array.", True)
