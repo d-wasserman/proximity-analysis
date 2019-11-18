@@ -110,10 +110,15 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
                 mean_stats.columns = ["w_mean_" + i for i in neighbor_fields]
             if "std" in statistics_to_compute:
                 pl.arc_print("Computing weighted standard deviation...")
-                arcpy.AddWarning("Weighted standard deviation is not supported yet...using regular STD...")
-                swm_df_stats = swm_df_grps[neighbor_fields].agg("std")
-                std_stats = swm_df_stats.copy()
-                std_stats.columns = ["w_std_" + i for i in neighbor_fields]
+                std_stats = None
+                for field in neighbor_fields:
+                    new_std_col = "w_std_" + str(field)
+                    series = swm_df_grps[[field, swm_df_weight]].apply(
+                        lambda x: weighted_standard_deviation(x[field], x[swm_df_weight]))
+                    if std_stats is None:
+                        std_stats = pd.DataFrame({new_std_col: series})
+                    else:
+                        std_stats[new_std_col] = series
             swm_df_stats = None
             for potential_statistic_df in [sum_stats, mean_stats, std_stats]:
                 if potential_statistic_df is None:
