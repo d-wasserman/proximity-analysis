@@ -1,6 +1,83 @@
 # proximity-analysis
 This repository documents ArcMap and ArcGIS Pro python based geoprocessing tools used to assist in proximity analysis related tasks. The tools within make use of Near-Analysis functionality and spatial weights matrices to compute euclidean and network based proximty metrics. 
 
+# Compute Neighborhood Statistics
+This tool will use spatial weights matrices (SWM) to enable neighborhood statistics between polygons.  
+# Summary 
+This tool will use spatial weights matrices to enable neighborhood statistics between polygons. The neighborhood statistics enabled are neighborhood sums, averages, and standard deviations. 
+
+# Parameters
+<table width="100%" border="0" cellpadding="5">
+<tbody>
+<tr>
+<th width="30%">
+<b>Parameter</b>
+</th>
+<th width="50%">
+<b>Explanation</b>
+</th>
+<th width="20%">
+<b>Data Type</b>
+</th>
+</tr>
+<tr>
+<td class="info">Input_Feature_Class</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>Input feature class that relates to the input SWM file. Has the fields to develop neighborhood statistics on. </SPAN></P></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Feature Class</td>
+</tr>
+<tr>
+<td class="info">Fields_to_Focalize</td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The fields from the input feature class to develop neighborhood statistics on. 
+ </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Multiple Value</td>
+</tr>
+<tr>
+<td class="info">Spatial Weights Matrix </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The spatial weights matrix file (SWM). </span></p></td>
+<td class="info" align="left">SWM File</td>
+</tr>
+<tr>
+<td class="info">Ouput_Feature_Class </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P><SPAN>Output feature class location with the focalized fields.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Feature Class</td>
+</tr>
+<tr>
+<td class="info">Use_Weights </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to use the weights embedded in the SWM. This is default. 
+</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Boolean</td>
+</tr>
+<tr>
+<td class="info">Compute_Sum </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood sum based on the spatial weights matrix. 
+</span></p></td>
+<td class="info" align="left">Boolean</td>
+</tr>
+<tr>
+<td class="info">Compute_Average </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
+</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
+</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Boolean</td>
+</tr>
+<tr>
+<td class="info">Compute_Standard_Deviation </td>
+<td class="info" align="left">
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
+</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
+</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<td class="info" align="left">Boolean</td>
+</tr>
+</tbody>
+</table>
+
 # Chained Near (Analysis)
 This tool will conduct a chained near analysis creating multiple near proximity fields for each near feature class given to it.
 # Summary
