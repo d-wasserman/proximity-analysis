@@ -49,7 +49,7 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <td class="info">Use_Weights </td>
 <td class="info" align="left">
 <span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to use the weights embedded in the SWM. This is default. 
-</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+</SPAN></P><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
@@ -62,7 +62,7 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <tr>
 <td class="info">Compute_Average </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. <SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. <SPAN></SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
@@ -70,7 +70,7 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <td class="info" align="left">
 <span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN> 
 </SPAN></P><P><SPAN>Indicates whether to compute the neighborhood standard deviation based on the spatial weights matrix. 
-</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 </tbody>
