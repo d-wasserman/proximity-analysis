@@ -62,16 +62,14 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <tr>
 <td class="info">Compute_Average </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
-</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
-</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. <SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
 <td class="info">Compute_Standard_Deviation </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
-</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. 
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN> 
+</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood standard deviation based on the spatial weights matrix. 
 </SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
