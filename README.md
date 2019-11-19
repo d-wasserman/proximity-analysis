@@ -42,7 +42,7 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <tr>
 <td class="info">Ouput_Feature_Class </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P><SPAN>Output feature class location with the focalized fields.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
