@@ -23,14 +23,14 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <tr>
 <td class="info">Input_Feature_Class</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>Input feature class that relates to the input SWM file. Has the fields to develop neighborhood statistics on. </SPAN></P></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>Input feature class that relates to the input SWM file. Has the fields to develop neighborhood statistics on. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
 <td class="info">Fields_to_Focalize</td>
 <td class="info" align="left">
 <span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The fields from the input feature class to develop neighborhood statistics on. 
- </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+ </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Multiple Value</td>
 </tr>
 <tr>
@@ -42,14 +42,14 @@ This tool will use spatial weights matrices to enable neighborhood statistics be
 <tr>
 <td class="info">Ouput_Feature_Class </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
 <td class="info">Use_Weights </td>
 <td class="info" align="left">
 <span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to use the weights embedded in the SWM. This is default. 
-</SPAN></P><span class="noContent">There is no python reference for this parameter.</span></p></td>
+</SPAN></P><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
@@ -98,31 +98,31 @@ This tool will conduct a near analysis that will add a new field for every Near 
 <tr>
 <td class="info">Input_Features</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
 <td class="info">Near_Features</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One or more feature layers or feature classes containing near feature candidates. The near features can be of point, polyline, polygon, or multipoint. If mutliple features are chosen, each one will be given a separate field in the form of "DIST_{Feature Class Name}", or "ANGLE_{Feature Class Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One or more feature layers or feature classes containing near feature candidates. The near features can be of point, polyline, polygon, or multipoint. If mutliple features are chosen, each one will be given a separate field in the form of "DIST_{Feature Class Name}", or "ANGLE_{Feature Class Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Multiple Value</td>
 </tr>
 <tr>
 <td class="info">Search_Radius (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Linear unit</td>
 </tr>
 <tr>
 <td class="info">Location (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
 <td class="info">Angle (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
@@ -134,7 +134,7 @@ This tool will conduct a near analysis that will add a new field for every Near 
 <tr>
 <td class="info">Method (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">String</td>
 </tr>
 </tbody>
@@ -169,37 +169,37 @@ running a Near Analysis tool on each of the output query layers.
 <tr>
 <td class="info">Input_Features</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
 <td class="info">Near_Feature</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One feature class that will have a field chosen to generate unique layers for comparison to the Input features. The near features can be of point, polyline, polygon, or multipoint. For each layer generated, each one will be given a separate field in the form of "DIST_{Feature Layer Name}", or "ANGLE_{Feature Layer Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One feature class that will have a field chosen to generate unique layers for comparison to the Input features. The near features can be of point, polyline, polygon, or multipoint. For each layer generated, each one will be given a separate field in the form of "DIST_{Feature Layer Name}", or "ANGLE_{Feature Layer Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Multiple Value</td>
 </tr>
 <tr>
 <td class="info">Near_Feature_Field</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the field that is used to generate unique near feature sets that will be compared to the Input Feature class.  </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the field that is used to generate unique near feature sets that will be compared to the Input Feature class.  </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Single Value</td>
 </tr>
 <tr>
 <td class="info">Search_Radius (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Linear unit</td>
 </tr>
 <tr>
 <td class="info">Location (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
 <td class="info">Angle (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Boolean</td>
 </tr>
 <tr>
@@ -211,7 +211,7 @@ running a Near Analysis tool on each of the output query layers.
 <tr>
 <td class="info">Method (Optional) </td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">String</td>
 </tr>
 </tbody>
@@ -239,7 +239,7 @@ This tool will score every field selected by the tool, and return a value based 
 <tr>
 <td class="info">Input_Features</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN /></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN /></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Feature Class</td>
 </tr>
 <tr>
@@ -252,25 +252,25 @@ This tool will score every field selected by the tool, and return a value based 
 <tr>
 <td class="info">Score_Threshold_Upper</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the upper value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold. </SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the upper value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold. </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 <tr>
 <td class="info">Score_Threshold_Lower</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the lower value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the lower value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 <tr>
 <td class="info">Score_If_WithinThreshold</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is within the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is within the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 <tr>
 <td class="info">Score_If_Outside_Threshold</td>
 <td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is outside the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent">There is no python reference for this parameter.</span></p></td>
+<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is outside the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
 <td class="info" align="left">Double</td>
 </tr>
 </tbody>
