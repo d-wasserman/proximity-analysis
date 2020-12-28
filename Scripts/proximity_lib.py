@@ -5,7 +5,8 @@
 # Last Modified: 09/08/2017
 # Copyright:   (c) CoAdapt
 # ArcGIS Version:   10.4.1
-# Python Version:   3.6/2.7
+# ArcGIS Pro Version: 2.7
+# Python Version:   2.7/3.6
 # --------------------------------
 # Copyright 2019 David J. Wasserman
 #

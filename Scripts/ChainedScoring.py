@@ -3,9 +3,10 @@
 # Purpose: This tool will add scoring fields for every field past based on a threshold, and two return values.
 # Current Owner: David Wasserman
 # Last Modified: 08/03/2017
-# Copyright:   (c) CoAdapt
+# Copyright:   (c) David Wasserman
 # ArcGIS Version:   10.4.1
-# Python Version:   2.7
+# ArcGIS Pro Version: 2.7
+# Python Version:   2.7/3.6
 # --------------------------------
 # Copyright 2016 David J. Wasserman
 #

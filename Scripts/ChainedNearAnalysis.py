@@ -4,9 +4,10 @@
 # Input Features dataset.
 # Current Owner: David Wasserman
 # Last Modified: 09/08/2017
-# Copyright:   (c) CoAdapt
+# Copyright:   (c) David Wasserman
 # ArcGIS Version:   10.4.1
-# Python Version:   2.7
+# ArcGIS Pro Version: 2.7
+# Python Version:   2.7/3.6
 # --------------------------------
 # Copyright 2016 David J. Wasserman
 #

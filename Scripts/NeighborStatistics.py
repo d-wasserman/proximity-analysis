@@ -6,7 +6,8 @@
 # Last Modified: 11/08/2019
 # Copyright:   (c) David Wasserman
 # ArcGIS Version:   10.4.1
-# Python Version:   2.7
+# ArcGIS Pro Version: 2.7
+# Python Version:   2.7/3.6
 # --------------------------------
 # Copyright 2019 David J. Wasserman
 #
