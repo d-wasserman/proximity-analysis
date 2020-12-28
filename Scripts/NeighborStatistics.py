@@ -69,12 +69,12 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
         swm_df_weight = "WEIGHT"
         swm_df = swm_df.set_index(swm_df_nid)
         pl.arc_print("Copying output feature classes...")
-        input_feature_fields = [str(i.name) for i in arcpy.ListFields(input_features)]
+        input_feature_fields = [str(i.name) for i in arcpy.ListFields(in_fc)]
         upper_case_fields = [i.upper() for i in input_feature_fields]
         feature_class_join_field = input_feature_fields[upper_case_fields.index(swm_df_join_field)]
         fc_fields = [feature_class_join_field]
         fc_fields.extend(neighbor_fields)
-        arcpy.CopyFeatures_management(input_features, output_feature_class)
+        arcpy.CopyFeatures_management(in_fc, output_feature_class)
         pl.arc_print("Combining spatial weights matrix & feature class fields...")
         fc_df = pl.arcgis_table_to_df(output_feature_class, fc_fields)
         fc_df = fc_df.set_index(feature_class_join_field)
