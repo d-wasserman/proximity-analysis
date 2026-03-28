@@ -28,6 +28,10 @@ import os, sys, arcpy
 import proximity_lib as pl
 
 
+# Function Definitions
+
+
+# Main Function
 def chained_near_analysis_filter(in_fc, near_feature, near_filter_field, search_radius=None, location=False,
                                  angle=False, fid=False, method="PLANAR"):
     """This tool will conduct a near analysis that will add a new field for every feature layer generated as the result

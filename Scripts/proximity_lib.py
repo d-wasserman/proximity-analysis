@@ -29,6 +29,8 @@ try:
 except:
     arcpy.AddError("Library requires that the pandas library is installed.")
 
+# Function Definitions
+
 def func_report(function=None, reportBool=False):
     """This decorator function is designed to be used as a wrapper with other functions to enable basic try and except
      reporting (if function fails it will report the name of the function that failed and its arguments. If a report
