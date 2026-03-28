@@ -4,7 +4,6 @@ Python-based geoprocessing tools for ArcMap and ArcGIS Pro that assist with prox
 
 ## Table of Contents
 
-- [Requirements](#requirements)
 - [Installation](#installation)
 - [Tools](#tools)
   - [Compute Neighborhood Statistics](#compute-neighborhood-statistics)
@@ -14,12 +13,6 @@ Python-based geoprocessing tools for ArcMap and ArcGIS Pro that assist with prox
 - [License](#license)
 
 ---
-
-## Requirements
-
-- ArcGIS Desktop 10.4.1+ or ArcGIS Pro 2.7+
-- Python 2.7 (ArcMap) or Python 3.6+ (ArcGIS Pro)
-- `arcpy` (bundled with ArcGIS)
 
 ## Installation
 
