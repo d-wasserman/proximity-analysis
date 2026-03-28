@@ -86,7 +86,6 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
             swm_df_grps = swm_df_w_data.groupby(swm_df_join_field)
             swm_df_stats = swm_df_grps[neighbor_fields].agg(statistics_to_compute)
             swm_df_stats.columns = ["_".join(x) for x in swm_df_stats.columns.ravel()]
-        # work in progress - next commit.
         else:  # Use weights
             pl.arc_print("Computing weighted neighborhood statistics...")
             neighbor_fields.append(swm_df_weight)
@@ -143,14 +142,7 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
         print(e.args[0])
 
 
-# End do_analysis function
-
-# This test allows the script to be used from the operating
-# system command prompt (stand-alone), in a Python IDE,
-# as a geoprocessing script tool, or as a module imported in
-# another script
 if __name__ == '__main__':
-    # Define input parameters
     input_features = arcpy.GetParameterAsText(0)
     neighbor_fields = arcpy.GetParameterAsText(1).split(";")
     spatial_weights_matrix = arcpy.GetParameterAsText(2)
