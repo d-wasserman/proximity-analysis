@@ -1,277 +1,116 @@
 # proximity-analysis
-This repository documents ArcMap and ArcGIS Pro python based geoprocessing tools used to assist in proximity analysis related tasks. The tools within make use of Near-Analysis functionality and spatial weights matrices to compute euclidean and network based proximty metrics. 
 
-# Compute Neighborhood Statistics
-This tool will use spatial weights matrices (SWM) to enable neighborhood statistics between polygons.  
-# Summary 
-This tool will use spatial weights matrices to enable neighborhood statistics between polygons. The neighborhood statistics enabled are neighborhood sums, averages, and standard deviations. 
+Python-based geoprocessing tools for ArcMap and ArcGIS Pro that assist with proximity analysis tasks. The tools use Near Analysis functionality and spatial weights matrices to compute Euclidean and network-based proximity metrics.
 
-# Parameters
-<table width="100%" border="0" cellpadding="5">
-<tbody>
-<tr>
-<th width="30%">
-<b>Parameter</b>
-</th>
-<th width="50%">
-<b>Explanation</b>
-</th>
-<th width="20%">
-<b>Data Type</b>
-</th>
-</tr>
-<tr>
-<td class="info">Input_Feature_Class</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>Input feature class that relates to the input SWM file. Has the fields to develop neighborhood statistics on. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Feature Class</td>
-</tr>
-<tr>
-<td class="info">Fields_to_Focalize</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The fields from the input feature class to develop neighborhood statistics on. 
- </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Multiple Value</td>
-</tr>
-<tr>
-<td class="info">Spatial Weights Matrix </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The spatial weights matrix file (SWM). </span></p></td>
-<td class="info" align="left">SWM File</td>
-</tr>
-<tr>
-<td class="info">Ouput_Feature_Class </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Output feature class location with the focalized fields. </SPAN></P><P></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Feature Class</td>
-</tr>
-<tr>
-<td class="info">Use_Weights </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to use the weights embedded in the SWM. This is default. 
-</SPAN></P><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Compute_Sum </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood sum based on the spatial weights matrix. 
-</span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Compute_Average </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Indicates whether to compute the neighborhood mean based on the spatial weights matrix. <SPAN></SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Compute_Standard_Deviation </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN> 
-</SPAN></P><P><SPAN>Indicates whether to compute the neighborhood standard deviation based on the spatial weights matrix. 
-</SPAN></P><P><SPAN></SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-</tbody>
-</table>
+## Table of Contents
 
-# Chained Near (Analysis)
-This tool will conduct a chained near analysis creating multiple near proximity fields for each near feature class given to it.
-# Summary
-This tool will conduct a near analysis that will add a new field for every Near Feature input into the Input Features dataset. Unlike Near, this tool will create a column wise set of Near fields for every Near Feature rather than using the closest of all the near features input into the tool. This results in many more fields, so use this only if you have a specific need to know proximity for every feature within the Input Feature class. Consider a Near Table if you want more detailed proximity information and are comfortable with a higher number of records.
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Tools](#tools)
+  - [Compute Neighborhood Statistics](#compute-neighborhood-statistics)
+  - [Chained Near Analysis](#chained-near-analysis)
+  - [Chained Near Query Filter](#chained-near-query-filter)
+  - [Chained Scoring](#chained-scoring)
+- [License](#license)
 
-# Parameters
-<table width="100%" border="0" cellpadding="5">
-<tbody>
-<tr>
-<th width="30%">
-<b>Parameter</b>
-</th>
-<th width="50%">
-<b>Explanation</b>
-</th>
-<th width="20%">
-<b>Data Type</b>
-</th>
-</tr>
-<tr>
-<td class="info">Input_Features</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Feature Class</td>
-</tr>
-<tr>
-<td class="info">Near_Features</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One or more feature layers or feature classes containing near feature candidates. The near features can be of point, polyline, polygon, or multipoint. If mutliple features are chosen, each one will be given a separate field in the form of "DIST_{Feature Class Name}", or "ANGLE_{Feature Class Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Multiple Value</td>
-</tr>
-<tr>
-<td class="info">Search_Radius (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Linear unit</td>
-</tr>
-<tr>
-<td class="info">Location (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Angle (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Transfer FID (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>If True, the FID of the Near Feature will be transferred to the input feature class along side the NEAR_Distance.</span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Method (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">String</td>
-</tr>
-</tbody>
-</table>
+---
 
-# Chained Near Query Filter (Analysis)
+## Requirements
 
-This tool will conduct a chained near analysis creating multiple near proximity fields for each layer generated based on a chosen fields unique values by a Make Feature Layer query. 
+- ArcGIS Desktop 10.4.1+ or ArcGIS Pro 2.7+
+- Python 2.7 (ArcMap) or Python 3.6+ (ArcGIS Pro)
+- `arcpy` (bundled with ArcGIS)
 
-# Summary
+## Installation
 
-This tool will conduct a near analysis that will add a new field for every unique value found in the Near Feature
-Filter Field relative to the Input Features dataset. Unlike Near, this tool will create multiple column wise near
-fields for every unique set of field values within the Near Feature that is being compared to the Input Feature
-class. This tool is the same as making a feature layer for every unique value in the Near Feature and then
-running a Near Analysis tool on each of the output query layers. 
+1. Clone or download this repository.
+2. Open ArcMap or ArcGIS Pro.
+3. Add the toolbox file (`proximity-analysis.tbx` for ArcMap, `proximity-analysis-103.tbx` for ArcGIS Pro 3.x) to your project via **Add Toolbox**.
+4. The scripts in `Scripts/` are referenced by the toolbox automatically — keep them in the same relative location.
 
-# Parameters
-<table width="100%" border="0" cellpadding="5">
-<tbody>
-<tr>
-<th width="30%">
-<b>Parameter</b>
-</th>
-<th width="50%">
-<b>Explanation</b>
-</th>
-<th width="20%">
-<b>Data Type</b>
-</th>
-</tr>
-<tr>
-<td class="info">Input_Features</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><P><SPAN>	</SPAN></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Feature Class</td>
-</tr>
-<tr>
-<td class="info">Near_Feature</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>One feature class that will have a field chosen to generate unique layers for comparison to the Input features. The near features can be of point, polyline, polygon, or multipoint. For each layer generated, each one will be given a separate field in the form of "DIST_{Feature Layer Name}", or "ANGLE_{Feature Layer Name}. Field names are validated so may be subject to truncation if the RDBMS requires it (shapefile). </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Multiple Value</td>
-</tr>
-<tr>
-<td class="info">Near_Feature_Field</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the field that is used to generate unique near feature sets that will be compared to the Input Feature class.  </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Single Value</td>
-</tr>
-<tr>
-<td class="info">Search_Radius (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>The radius used to search for near features. If no value is specified, all near features are considered. If a distance but no unit or unknown is specified, the units of the coordinate system of the input features are used. If the Geodesic option is used, a linear unit such as Kilometers or Miles should be used.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Linear unit</td>
-</tr>
-<tr>
-<td class="info">Location (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether x- and y-coordinates of the closest location of the near feature will be written to the X_{Feature Class Name} and Y_{Feature Class Name}  fields.</SPAN></P><P><SPAN>NO_LOCATION - Location information will not be written to the output table. This is the default.</SPAN></P><P><SPAN>LOCATION - Location information will be written to the output table.</SPAN></P><P><SPAN /></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Angle (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Specifies whether the near angle will be calculated and written to a ANGLE_{Feature Name} field in the output table. A near angle measures direction of the line connecting an input feature to its nearest feature at their closest locations. When the PLANAR method is used in the method parameter, the angle is within the range of -180 to 180, with 0 to the east, 90 to the north, 180 (or -180) to the west, and -90 to the south. When the GEODESIC method is used, the angle is within the range of -180 to 180, with 0 to the north, 90 to the east, 180 (or -180) to the south, and -90 to the west.</SPAN></P><P><SPAN>NO_ANGLE -The near angle values will not be written. This is the default.</SPAN></P><P><SPAN>ANGLE - The near angle values will be written to the ANGLE_{Feature Class Name}  field.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Transfer FID (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>If True, the FID of the Near Feature will be transferred to the input feature class along side the NEAR_Distance.</span></p></td>
-<td class="info" align="left">Boolean</td>
-</tr>
-<tr>
-<td class="info">Method (Optional) </td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>Determines whether to use a shortest path on a spheroid (geodesic) or a flat earth (planar) method. It is strongly suggested to use the Geodesic method with data stored in a coordinate system that is not appropriate for distance measurements (for example, Web Mercator or any geographic coordinate system) and any analysis that spans a large geographic area.</SPAN></P><P><SPAN>PLANAR -Uses planar distances between the features. This is the default.</SPAN></P><P><SPAN>GEODESIC -Uses geodesic distances between features. This method takes into account the curvature of the spheroid and correctly deals with data near the dateline and poles.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">String</td>
-</tr>
-</tbody>
-</table>
+---
 
-# Chained Scoring (Analysis)
-This tool score incoming features based on selected fields by checking if it is below a threshold for each field and then returning chosen values for if it is greater than or less than the threshold. 
-# Summary
-This tool will score every field selected by the tool, and return a value based on whether the value for that field (IE Proximity), is less than or equal to the set threshold. This tool is intended to be used with the Chained Near Analysis tool, and will even remove the "DIST_" or "ANGLE_" text elements of the new created field names when scoring proximity fields. 
+## Tools
 
-# Parameters
-<table width="100%" border="0" cellpadding="5">
-<tbody>
-<tr>
-<th width="30%">
-<b>Parameter</b>
-</th>
-<th width="50%">
-<b>Explanation</b>
-</th>
-<th width="20%">
-<b>Data Type</b>
-</th>
-</tr>
-<tr>
-<td class="info">Input_Features</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN /></P><P><SPAN>The input features that can be point, polyline, polygon, or multipoint type. Will have new fields added to it. </SPAN></P></DIV></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Feature Class</td>
-</tr>
-<tr>
-<td class="info">Fields_to_Score</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN>These are the fields that will be compared against the threshold value chosen, and then will be used to generate new scoring fields based on the passed field names. </SPAN></P></DIV></DIV></DIV><div class="noContent" style="text-align:center; margin-top: -1em">___________________</div><br />
-<span style="font-weight: bold">Python Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><DIV><P><SPAN><SPAN>new_score_fields</SPAN></SPAN><SPAN><SPAN /></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>= </SPAN></SPAN><SPAN><SPAN>[</SPAN></SPAN><SPAN /><SPAN><SPAN>arcpy.ValidateFieldName(</SPAN></SPAN><SPAN><SPAN>"SCORE_{0}"</SPAN></SPAN><SPAN><SPAN>.format(</SPAN></SPAN><SPAN><SPAN>str</SPAN></SPAN><SPAN><SPAN>(i).replace(</SPAN></SPAN><SPAN><SPAN>"DIST_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>).replace(</SPAN></SPAN><SPAN><SPAN>"ANGLE_"</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>""</SPAN></SPAN><SPAN><SPAN>, </SPAN></SPAN><SPAN><SPAN>1</SPAN></SPAN><SPAN><SPAN>)),</SPAN></SPAN><SPAN /><SPAN><SPAN>workspace) </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>for </SPAN></SPAN><SPAN><SPAN>i </SPAN></SPAN><SPAN STYLE="font-weight:bold;"><SPAN>in </SPAN></SPAN><SPAN><SPAN>fields_list]</SPAN></SPAN></P><P><SPAN /></P></DIV></DIV></DIV></td>
-<td class="info" align="left">Multiple Value</td>
-</tr>
-<tr>
-<td class="info">Score_Threshold_Upper</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the upper value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold. </SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Double</td>
-</tr>
-<tr>
-<td class="info">Score_Threshold_Lower</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This represents the lower value of the near values that will be considered for scoring in a proximity analysis. If the value is greater than or equal to this value and below the upper threshold value, it is considered "Within" the threshold</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Double</td>
-</tr>
-<tr>
-<td class="info">Score_If_WithinThreshold</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is within the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Double</td>
-</tr>
-<tr>
-<td class="info">Score_If_Outside_Threshold</td>
-<td class="info" align="left">
-<span style="font-weight: bold">Dialog Reference</span><br /><DIV STYLE="text-align:Left;"><DIV><P><SPAN>This is the score the field will have if it is outside the threshold value bounds.</SPAN></P></DIV></DIV><p><span class="noContent"></span></p></td>
-<td class="info" align="left">Double</td>
-</tr>
-</tbody>
-</table>
+### Compute Neighborhood Statistics
+
+Uses a spatial weights matrix (SWM) to compute neighborhood statistics (sum, mean, standard deviation) between polygons.
+
+#### Parameters
+
+| Parameter | Description | Data Type |
+|-----------|-------------|-----------|
+| Input_Feature_Class | Input feature class that relates to the input SWM file. Must contain the fields to compute neighborhood statistics on. | Feature Class |
+| Fields_to_Focalize | The fields from the input feature class to compute neighborhood statistics on. | Multiple Value |
+| Spatial_Weights_Matrix | The spatial weights matrix file (`.swm`). | SWM File |
+| Output_Feature_Class | Output feature class location containing the focalized fields. | Feature Class |
+| Use_Weights | Whether to use the weights embedded in the SWM. Default is `True`. | Boolean |
+| Compute_Sum | Whether to compute the neighborhood sum based on the spatial weights matrix. | Boolean |
+| Compute_Average | Whether to compute the neighborhood mean based on the spatial weights matrix. | Boolean |
+| Compute_Standard_Deviation | Whether to compute the neighborhood standard deviation based on the spatial weights matrix. | Boolean |
+
+---
+
+### Chained Near Analysis
+
+Runs a Near Analysis and adds a separate distance (and optionally angle/location/FID) field for every Near Feature class provided, rather than overwriting a single `NEAR_DIST` field.
+
+Unlike the standard Near tool, which retains only the closest feature across all inputs, this tool produces a column for each Near Feature (`DIST_{FeatureClassName}`, `ANGLE_{FeatureClassName}`, etc.), so you can compare proximity to multiple feature classes simultaneously. Field names are validated and may be truncated by the RDBMS (e.g., shapefiles).
+
+> **Note:** Use a Near Table instead if you need detailed proximity information and are comfortable working with a higher row count.
+
+#### Parameters
+
+| Parameter | Description | Data Type |
+|-----------|-------------|-----------|
+| Input_Features | Input features (point, polyline, polygon, or multipoint). New fields are added to this dataset. | Feature Class |
+| Near_Features | One or more feature layers or feature classes to measure distance to. Each produces a `DIST_{Name}` field (and optionally `ANGLE_{Name}`, `X_{Name}`, `Y_{Name}`, `FID_{Name}`). | Multiple Value |
+| Search_Radius *(optional)* | Maximum search distance. If omitted, all near features are considered. Use a linear unit (e.g., `1000 Meters`) when using the Geodesic method. | Linear Unit |
+| Location *(optional)* | If `LOCATION`, writes the x- and y-coordinates of the closest point on the near feature to `X_{Name}` and `Y_{Name}` fields. Default: `NO_LOCATION`. | Boolean |
+| Angle *(optional)* | If `ANGLE`, writes the near angle to an `ANGLE_{Name}` field. Planar: −180 to 180, 0 = east. Geodesic: −180 to 180, 0 = north. Default: `NO_ANGLE`. | Boolean |
+| Transfer_FID *(optional)* | If `True`, copies the near feature's FID to a `FID_{Name}` field alongside the distance. | Boolean |
+| Method *(optional)* | `PLANAR` (default) uses flat-earth distances. `GEODESIC` accounts for the curvature of the earth — recommended for data in geographic coordinate systems (e.g., WGS84, Web Mercator) or for analysis spanning large areas. | String |
+
+---
+
+### Chained Near Query Filter
+
+Runs a Near Analysis for every unique value in a chosen field of a single Near Feature class, producing one distance column per unique value. Equivalent to manually creating a feature layer for each unique value and running Near Analysis on each.
+
+#### Parameters
+
+| Parameter | Description | Data Type |
+|-----------|-------------|-----------|
+| Input_Features | Input features (point, polyline, polygon, or multipoint). New fields are added to this dataset. | Feature Class |
+| Near_Feature | A single feature class whose unique field values drive the analysis. Produces `DIST_{Value}` (and optionally `ANGLE_{Value}`) fields. | Feature Class |
+| Near_Feature_Field | The field in Near_Feature whose unique values are used to generate the per-category near feature sets. | Field |
+| Search_Radius *(optional)* | Maximum search distance. If omitted, all near features are considered. Use a linear unit (e.g., `1000 Meters`) when using the Geodesic method. | Linear Unit |
+| Location *(optional)* | If `LOCATION`, writes the x- and y-coordinates of the closest point to `X_{Name}` and `Y_{Name}` fields. Default: `NO_LOCATION`. | Boolean |
+| Angle *(optional)* | If `ANGLE`, writes the near angle to an `ANGLE_{Name}` field. Default: `NO_ANGLE`. | Boolean |
+| Transfer_FID *(optional)* | If `True`, copies the near feature's FID to a `FID_{Name}` field alongside the distance. | Boolean |
+| Method *(optional)* | `PLANAR` (default) or `GEODESIC`. See [Chained Near Analysis](#chained-near-analysis) for details. | String |
+
+---
+
+### Chained Scoring
+
+Scores fields by comparing each value against a lower and upper threshold, assigning one score when the value falls within the range and another when it falls outside. Designed to work directly with the distance fields produced by Chained Near Analysis — it automatically strips the `DIST_` and `ANGLE_` prefixes when naming the output `SCORE_` fields.
+
+#### Parameters
+
+| Parameter | Description | Data Type |
+|-----------|-------------|-----------|
+| Input_Features | Input features (point, polyline, polygon, or multipoint). New `SCORE_` fields are added to this dataset. | Feature Class |
+| Fields_to_Score | Fields to evaluate against the threshold. Output fields are named `SCORE_{FieldName}` (with `DIST_` / `ANGLE_` prefixes stripped). | Multiple Value |
+| Score_Threshold_Upper | Upper bound of the "within threshold" range (exclusive). Values strictly below this and at or above the lower bound are considered within the threshold. | Double |
+| Score_Threshold_Lower | Lower bound of the "within threshold" range (inclusive). Values at or above this and below the upper bound are considered within the threshold. | Double |
+| Score_If_Within_Threshold | Score assigned when the field value falls within the threshold range. | Double |
+| Score_If_Outside_Threshold | Score assigned when the field value falls outside the threshold range. | Double |
+
+---
+
+## License
+
+Copyright 2016 David J. Wasserman
+
+Licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). See [`LICENSE`](LICENSE) for details.
