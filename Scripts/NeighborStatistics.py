@@ -142,6 +142,10 @@ def compute_neighborhood_stats(in_fc, neighbor_fields, spatial_weights_matrix, o
         print(e.args[0])
 
 
+# This test allows the script to be used from the operating
+# system command prompt (stand-alone), in a Python IDE,
+# as a geoprocessing script tool, or as a module imported in
+# another script
 if __name__ == '__main__':
     input_features = arcpy.GetParameterAsText(0)
     neighbor_fields = arcpy.GetParameterAsText(1).split(";")

@@ -71,6 +71,10 @@ def chained_scoring_func(in_fc, scoring_fields, threshold_upper, threshold_lower
         print(e.args[0])
 
 
+# This test allows the script to be used from the operating
+# system command prompt (stand-alone), in a Python IDE,
+# as a geoprocessing script tool, or as a module imported in
+# another script
 if __name__ == '__main__':
     input_features = arcpy.GetParameterAsText(0)
     score_fields = str(arcpy.GetParameterAsText(1)).split(";")

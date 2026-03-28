@@ -95,6 +95,10 @@ def chained_near_analysis_filter(in_fc, near_feature, near_filter_field, search_
         print(e.args[0])
 
 
+# This test allows the script to be used from the operating
+# system command prompt (stand-alone), in a Python IDE,
+# as a geoprocessing script tool, or as a module imported in
+# another script
 if __name__ == '__main__':
     input_features = arcpy.GetParameterAsText(0)
     near_feature = str(arcpy.GetParameterAsText(1))
